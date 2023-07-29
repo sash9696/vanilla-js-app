@@ -10,6 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
+    <!-- so browser will start downloading css in this case due to preload
+        as soon as possible even if it doesnt know why u will use it later.
+        so it will be already there when web component asked for it
+     -->
+    <link rel="preload" href="components/MenuPage.css" as="stylesheet">
+
     <!-- type="module" express that this app will be loaded as a module so every variable will b esecific to the module -->
     <script src="app.js" defer type="module"></script>
     <link rel="stylesheet" href="styles.css">
@@ -36,6 +42,7 @@
     </main>
 
     <template id="menu-page-template">
+        <h1>This is a menu page</h1>
         <section>
             <ul id="menu"></ul>
         </section>

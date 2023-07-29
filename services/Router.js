@@ -33,17 +33,14 @@ const Router = {
 		let pageElement = null;
 		switch (route) {
 			case "/":
-				pageElement = document.createElement("h1");
-				pageElement.textContent = "Menu";
+				pageElement = document.createElement("menu-page");
 				break;
 			case "/order":
-				pageElement = document.createElement("h1");
-				pageElement.textContent = "Order";
+				pageElement = document.createElement("order-page");
 				break;
             default:
                 if (route.startsWith("products-")){
-                    pageElement = document.createElement("h1");
-                    pageElement.textContent = "Details";
+                    pageElement = document.createElement("details-page");
                     const paramId = route.substring(route.lastIndexOf("-") + 1);
                     pageElement.dataset.id = paramId;
                     //using dataset is googd here because browser will not
