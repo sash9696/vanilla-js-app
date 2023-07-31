@@ -39,15 +39,19 @@ const Router = {
 				pageElement = document.createElement("order-page");
 				break;
             default:
-                if (route.startsWith("products-")){
+                if (route.startsWith("/product-")){
                     pageElement = document.createElement("details-page");
+					// console.log('route',{route,pageElement})
+
                     const paramId = route.substring(route.lastIndexOf("-") + 1);
-                    pageElement.dataset.id = paramId;
+                    pageElement.dataset.productId = paramId;
                     //using dataset is googd here because browser will not
                     //parse it as it is for custom libraries
 
 
                 }
+				break;   
+
 		}
 		//quick and dirty way because its a string
 		// document.querySelector("main").innerHTML = '';
@@ -55,6 +59,7 @@ const Router = {
 		if (pageElement) {
 			//u can cache but mordern browsers do it anyway
 			const cache = document.querySelector("main");
+			console.log('cache',cache)
 			cache.innerHTML = "";
 			cache.appendChild(pageElement);
 			window.scrollX = 0;

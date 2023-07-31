@@ -5,6 +5,7 @@ import Router from "./services/Router.js";
 import { MenuPage } from "./components/MenuPage.js";
 import { DetailsPage } from "./components/DetailsPage.js";
 import { OrderPage } from "./components/OrderPage.js";
+import ProductItem from "./components/ProductItem.js";
 
 //Link my web components using import
 //because js we load that file and execute web components module
