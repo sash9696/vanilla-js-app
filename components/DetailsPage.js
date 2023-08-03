@@ -1,4 +1,5 @@
 import { getProductById } from '../services/Menu.js';
+import { addToCart } from '../services/Order.js';
 
 
 //using shadow dom only for pages
@@ -30,7 +31,8 @@ export  class DetailsPage extends HTMLElement {
             this.root.querySelector(".description").textContent = this.product.description;
             this.root.querySelector(".price").textContent = `$ ${this.product.price.toFixed(2)} ea`
             this.root.querySelector("button").addEventListener("click", ()=> {
-                // TODO addToCart(this.product.id); 
+                // TODO 
+                addToCart(this.product.id); 
                 app.router.go('/order');
             })
         } else {
