@@ -1,4 +1,15 @@
 export  class OrderPage extends HTMLElement {
+
+  //private object, datamodel using it as single source of truth 
+  //to avoid dulication of data in different places
+  //we will bind this object automaticall in both ways
+  //like if the object is changed i want form to recieve that
+  //and vice versa 
+  #user = {
+    name: '',
+    phone: '',
+    email: ''
+  }
     constructor() {
         super();
         this.root = this.attachShadow({ mode: "open" });    
@@ -20,8 +31,10 @@ export  class OrderPage extends HTMLElement {
       })
       this.render();
     }
-  
+    
     render() {
+      // document.querySelector("form") will not work because form is
+      //inside shadow dom
       let section = this.root.querySelector("section");   
       if (app.store.cart.length==0) {     
         section.innerHTML = `
@@ -54,6 +67,41 @@ export  class OrderPage extends HTMLElement {
               </li>                
           `;            
       }
+      this.setFormBindings(this.root.querySelector("form"))
+
+    }
+    setFormBindings(form){
+      
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        alert(`Thanks for your order ${this.#user.name}`)
+        this.#user.name = '';
+        this.#user.email = '';
+        this.#user.phone = '';
+        //TODO send data to the server
+
+      })
+      //set double data binding
+      this.#user = new Proxy(this.#user, {
+        set (target,property,value){
+          target[property] = value
+          //old dom ai to get elements of a form
+          form.elements[property].value = value;
+          //till now it is only one way binding
+          //it is important to return true
+          return true;
+        }
+      })
+      //second way binding
+      Array.from(form.elements).forEach((element) => {
+        element.addEventListener("change", event => {
+          this.#user[element.name] = element.value
+        })
+      })
+      //it seems kind of an infinite loop problem
+      //but it does not happen because chage will only trigger not from javasvript
+      //but when user changes something
+      //so this is kind of like a handshake mecahnism
     }
   }
   customElements.define("order-page", OrderPage);
